@@ -1,0 +1,469 @@
+---
+title: "BE601 - DATA ANALYTICS I"
+subtitle: Chapter 3 - Probability - Book Exercise
+author: "Uyen Vu (uyen.vu@phdstudent.hhs.se)"
+date: "August 12th, 2022"
+output: word_document
+#    reference_docx: "assets/sse-word-template.docx"
+#    toc: yes
+#    toc_depth: 2
+
+monofont: consolas
+---
+
+
+\newpage
+
+# Example:
+
+## 3.22 - page 132
+
+A: be in a single accident
+notA: not be in a single accident
+
+B: had been drinking
+
+```{r}
+P_BonnotA <- 0.103
+P_BonA <- 0.324
+overinvolvement_ratio <- P_BonA / P_BonnotA
+overinvolvement_ratio
+```
+
+Becaue the overinvolvement ration > 1, we can say that drinking increase the odds of being involved in car accidents.
+
+# Exercise:
+
+## 3.27
+
+- define the outcome:
+
+A1: use superior strategy			
+
+A2: use normal strategy			
+
+A3: use cheap strategy
+
+B1: media ad
+
+B2: price discount
+
+B3: coupon
+
+- event of interest: A1 በ B1
+
+P(A1) = P(A2) = P(A3) = 1/3                     
+
+P(B1) = P(B2) = P(B3) = 1/3
+
+Because A & B are statistically independent:
+
+P(A1 በ B1) = P(A) * P(B) = 1/9
+
+## 3.28
+
+```{r}
+# number of ways to rank: 9!
+factorial(9)
+```
+
+For each of the position, the chance to be correct is 1/9
+
+## 3.29
+
+E1: receive full scholarship
+
+E2: receive 50% scholarship
+
+E3: receive book
+
+Possible outcomes for E1 = 100
+
+Possible outcomes for E2 after E1 = 99
+
+Possible outcomes for award = 100*99=9900
+
+```{r}
+# Permutation in R:
+factorial(100)/factorial(98)
+```
+
+## 3.30
+
+E1: Stock ranks 1st
+
+E2: Stock ranks 2nd
+
+E3: Stock ranks 3rd
+
+Making the correction by chance is similar to choosing 3 stocks from the list of 6 and rank in order.
+
+Possible permutations, with n = 6 and x = 3:
+
+```{r}
+factorial(6)/factorial(6-3)
+```
+
+## 3.31
+
+G1: there is no graduate student
+
+G2: there is at least 1 graduate student
+
+U1: all are undergraduate student
+
+G1 = U1
+
+Possible outcomes for U1: combination with n = 4 and x = 3
+All possible outcomes for choosing 3 out of 6: combination with n = 6 and x = 3
+
+```{r}
+# combination with n = 4 and x = 3
+x1 <- factorial(4)/(factorial(3)*factorial(4-3))
+# combination with n = 6 and x = 3
+x2 <- factorial(6)/(factorial(3)*factorial(6-3))
+# P(G1)
+x1/x2
+```
+
+## 3.32
+
+All possible outcomes (number of possible predictions): permutation with n = 7, x = 5
+
+```{r}
+n <- factorial(7)/factorial(7-5)
+```
+
+In all possible predictions, one will be correct. Probability of making the correct prediction:
+
+```{r}
+na <- 1/n
+na
+```
+
+## 3.33
+
+This is the combination with n = 8, x = 5
+
+```{r}
+factorial(8)/(factorial(5)*factorial(8-5))
+```
+
+## 3.34
+
+a.  This is the combination with n = 7, x = 5
+
+```{r}
+all <- factorial(7)/(factorial(5)*factorial(7-5))
+all
+```
+
+b. Possibilities that I am NOT chosen is combination with n = 6, x = 2
+
+```{r}
+# All possible outcomes
+all <- factorial(7)/(factorial(5)*factorial(7-5))
+all
+# Possibilities that I am NOT chosen
+i_am_not_chosen <- factorial(6)/(factorial(2)*factorial(6-2))
+i_am_not_chosen
+# Possibilities that I am chosen
+i_am_chosen <- all - i_am_not_chosen
+i_am_chosen
+#possibilities that I am chosen to play heroine
+i_am_chosen_heroine <- i_am_chosen * 0.5
+i_am_chosen_heroine
+```
+
+c. Possibilities for me to play best friend:
+
+```{r}
+# Probability for the chosen person to play best friend is 0.5
+P_best_friend <- 0.5
+# All possible outcomes
+all <- factorial(7)/(factorial(5)*factorial(7-5))
+all
+# Possibilities that I am NOT chosen
+i_am_not_chosen <- factorial(6)/(factorial(2)*factorial(6-2))
+i_am_not_chosen
+# Possibilities that I am chosen
+i_am_chosen <- all - i_am_not_chosen
+i_am_chosen
+# Possibilities that I am chosen to play best friend
+i_am_chosen_best_friend <- i_am_chosen*0.5
+i_am_chosen_best_friend
+```
+
+d. From a. & b. 
+
+```{r}
+# Probability that I am chosen to play heroine (using results from a & b)
+P_i_am_chosen_heroine <- 3/21
+P_i_am_chosen_heroine
+```
+
+Alternatively,
+
+A: I am chosen
+
+B: Playing heroine (P(B|A) = 0.5)
+
+```{r}
+# P(notA) is combination with n = 6, x = 2 
+notA <- factorial(6)/(factorial(2)*factorial(6-2))
+notA
+# all possible outcome is combination with n = 7, x = 2
+all <- factorial(7)/(factorial(2)*factorial(7-2))
+all
+# P(A) = 1 - P(notA)
+P_A <- 1 - notA/all
+P_A
+# P(A በ B) = P(B|A) * P(A)
+P_AintersectB <- 0.5 * P_A
+P_AintersectB
+```
+
+e. Possibilities for me to play one of the 2 parts: 3 + 3 = 6
+
+All possible outcomes: 21
+
+```{r}
+# Probability that I am chosen:
+6/21
+```
+
+Alternatively,
+
+```{r}
+# P(notA) is combination with n = 6, x = 2 
+notA <- factorial(6)/(factorial(2)*factorial(6-2))
+# all possible outcome is combination with n = 7, x = 2
+all <- factorial(7)/(factorial(2)*factorial(7-2))
+# P(A) = 1 - P(notA)
+P_A <- 1 - notA/all
+P_A
+```
+
+## 3.25
+
+a. Choose pilot: combination with n = 10, x = 2
+
+Choose flight attendants: combination with n = 20, x = 5
+
+```{r}
+# Ways to choose pilots:
+pilot <- factorial(10)/(factorial(2)*factorial(10-2))
+pilot
+#ways to choose attendants:
+attendant <- factorial(20)/(factorial(5)*factorial(20-5))
+attendant
+#way to choose 2 pilots and 5 attendants:
+crew <- pilot * attendant
+crew
+```
+
+b.Possibilities for the sibling not being chosen from 20 attendants is combination with n = 19, x = 4
+
+
+
+```{r}
+## possibilities for the sibling NOT being chosen from 20 attendants is:
+NOT_sibling_attendant <- factorial(19)/(factorial(5)*factorial(19-5))
+NOT_sibling_attendant
+## All possible outcomes for choosing attendants:
+all_attendant <- factorial(20)/(factorial(5)*factorial(20-5))
+all_attendant
+## Probability that the sibling being chosen from 20 attendants is:
+P_sibling_attendant <- 1 - NOT_sibling_attendant/all_attendant
+P_sibling_attendant
+
+## possibilities for the sibling NOT being chosen from 10 pilots is:
+NOT_sibling_pilot <- factorial(9)/(factorial(2)*factorial(9-2))
+NOT_sibling_pilot
+## All possible outcomes for choosing pilots:
+all_pilot <- factorial(10)/(factorial(2)*factorial(10-2))
+all_pilot
+## Probability that the sibling being chosen from 10 pilots is:
+P_sibling_pilot <- 1 - NOT_sibling_pilot/all_pilot
+P_sibling_pilot
+## Probability for both siblings being chosen (muliplication rule):
+P_both_sibling <- P_sibling_attendant * P_sibling_pilot
+P_both_sibling
+```
+
+c. A: sibling is chosen as pilot
+
+B: sibling is chosen as attendant
+
+P(A U B) = P(A) + P(B) - P(A በ B)
+Possibilities that neither of siblings is chosen: 1 - P(A U B)
+
+```{r}
+## possibilities for the sibling being chosen as attendant:
+sibling_attendant <- factorial(19)/(factorial(4)*factorial(19-4))
+sibling_attendant
+## All possible outcomes for choosing attendants:
+all_attendant <- factorial(20)/(factorial(5)*factorial(20-5))
+all_attendant
+## Probability that the sibling being chosen from 20 attendants is (P(A)):
+P_sibling_attendant <- sibling_attendant/all_attendant
+P_sibling_attendant
+
+## possibilities for the sibling being chosen as pilot:
+sibling_pilot <- factorial(9)/(factorial(1)*factorial(9-1))
+sibling_pilot
+## All possible outcomes for choosing pilots:
+all_pilot <- factorial(10)/(factorial(2)*factorial(10-2))
+all_pilot
+## Probability that the sibling being chosen from 10 pilots is (P(B)):
+P_sibling_pilot <- sibling_pilot/all_pilot
+P_sibling_pilot
+## Probability for both siblings being chosen (muliplication rule) (P(A በ B)):
+P_both_sibling <- P_sibling_attendant * P_sibling_pilot
+P_both_sibling
+## Probability for at least 1 sibling is chosen:
+P_atleast_one_sibling <- P_sibling_attendant + P_sibling_pilot - P_both_sibling
+## Probability that no sibling is chosen:
+P_neither_sibline <- 1 - P_atleast_one_sibling
+P_neither_sibline
+```
+
+## 3.36
+
+a. 
+
+```{r}
+# Choices for 2 private schools: combination (n=5,x=2)
+private <- factorial(5)/(factorial(2)*factorial(5-2))
+private
+# Choices for 2 public schools: combination (n=3,x=2)
+public <- factorial(3)/(factorial(2)*factorial(3-2))
+public
+# Possible choices: 
+all <- private * public
+all
+```
+
+b.
+
+```{r}
+# Choices that no private school is not underperformed (n=4,x=2)
+private_not_underperformed <- factorial(4)/(factorial(2)*factorial(4-2))
+private_not_underperformed
+#Choices that no public school is not underperformed (n=2,x=2)
+public_not_underperformed <- factorial(2)/(factorial(2)*factorial(2-2))
+public_not_underperformed
+#Choices that neither sector has underperformed school:
+not_underperformed <- private_not_underperformed * public_not_underperformed
+not_underperformed
+# All possible choices
+all <- 30
+# Probability that at least one of the schools will underperform:
+P_atleast_underperform <- 1 - not_underperformed/all
+P_atleast_underperform
+```
+
+## 3.37
+
+E1: being concerned about employment prospect - P(E1) = 0.6
+
+E2: being concerned about grades - P(E2) = 0.45
+
+P(E1 በ E2) = 0.3
+
+
+```{r}
+P_E1 <- 0.6
+P_E2 <- 0.45
+P_intersection <- 0.3
+P_union <- P_E1 + P_E2 - P_intersection
+P_union
+```
+
+## 3.38
+
+A: ask for help
+
+E: making a purchase
+
+```{r}
+P_A <- 0.3
+P_E <- 0.2
+P_intersection <- 0.15
+P_union <- P_A + P_E - P_intersection
+P_union
+```
+
+## 3.39
+
+A: immediate donation - P(A) = 0.75
+
+B: request information - P(B) = 0.15
+
+C: no interest = 0.3
+
+D: donation | B - P(D) = 0.2
+
+E: no donation | B - P_notD = 0.8
+
+a)
+
+```{r}
+P_A <- 0.75
+P_notA <- 1 - P_A
+# The probability of having no immediate donation after 4 calls:
+P_notA_4calls <- P_notA^4
+P_notA_4calls
+```
+
+b)
+
+```{r}
+#Probability that each call is unsuccessful
+P_B <- 0.15
+P_C <- 0.3
+P_notD <- 0.8
+P_fail <- P_C + P_B * P_notD
+#Probability that 4 calls is unsuccessful in a row
+P_4successful <- P_fail^4
+P_4successful
+```
+
+## 3.40
+
+P(B በ C) = 0 (mutually exclusive)
+
+P(A በ B በ C) = 0
+
+P(A በ B) = P(A)*P(B) (statistically independent)
+
+P(A በ C) = P(A)*P(C) (statistically independent)
+
+<Draw the vein diagram here>
+
+P(A U B U C) = P(A) + P(B) + P(C) - P(A በ B) - P(A በ C) - P(B በ C) - P(A በ B በ C)
+
+```{r}
+P_A <- 0.02
+P_B <- 0.01
+P_C <- 0.04
+P_unionABC <- P_A + P_B + P_C - P_A*P_B - P_A*P_C - 0 - 0
+P_unionABC
+```
+
+## 3.41
+
+0.98 * 0.85
+
+## 3.42
+
+0.1/0.18
+0.1/0.12
+
+## 3.43
+
+0.01/0.08
+
+
+
+

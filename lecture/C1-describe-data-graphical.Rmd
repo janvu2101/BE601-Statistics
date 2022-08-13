@@ -3,11 +3,10 @@ title: "BE601 - DATA ANALYTICS I"
 subtitle: "Chapter 1 - Describing data: Graphical"
 author: "Uyen Vu (uyen.vu@phdstudent.hhs.se)"
 date: "August 2nd, 2022"
-output:
-  word_document:
-    reference_docx: "assets/sse-word-template.docx"
-    toc: true
-    toc_depth: 2
+output: word_document
+#    reference_docx: "assets/sse-word-template.docx"
+#   toc: true
+#    toc_depth: 2
 monofont: 'consolas'
 ---
 

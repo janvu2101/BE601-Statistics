@@ -1,0 +1,17 @@
+---
+title: "Assignment_Test"
+author: "Uyen Vu"
+date: "30/08/2022"
+output: pdf_document
+---
+
+```{r}
+df <- data.frame(number = c(1:26),
+                 letter = c(LETTERS[1:26]))
+head(df, 26)
+f <- function(x){10*sqrt(x)-4*exp(x)}
+f(21)
+f(22)
+curve(f)
+```
+

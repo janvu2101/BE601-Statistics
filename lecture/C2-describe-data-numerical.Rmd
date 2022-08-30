@@ -1,0 +1,124 @@
+---
+title: "BE601 - DATA ANALYTICS I"
+subtitle: "Describing Data: Numerical"
+author: "Uyen Vu"
+date: "29/08/2022"
+output: word_document
+monofont: 'consolas'
+---
+
+# Measures of central tendency and location
+
+1. Mean, Median, and Mode (describe central tendency)
+- arithmetic mean:
+- median: odd n vs even n
+- mode: most regular observation **
+  + one mode: unimodal distribution
+  + two modes: bimodal distribution
+  + > two modes: multimodal distribution
+2. Example
+
+```{r}
+#exp 2.1 (p65)
+demand <- c(60,84,65,67,75,72,80,85,63,82,70,75)
+mean(demand)
+median(demand)
+df <- as.data.frame(table(demand))
+colnames(df) <- c("value","freq")
+df <- df[order(-df[, "freq"]), ]
+df #mode is 75
+```
+
+```{r}
+#exp 2.2 (p65)
+eps <- c(0.05,0.05,0.081,0.136,0.232,0.207,0.12,0.142)
+mean(eps)
+median(eps)
+df <- as.data.frame(table(eps))
+colnames(df) <- c("value","freq")
+df <- df[order(-df[, "freq"]), ]
+df
+```
+
+3. Geometric mean
+
+4. Percentiles and Quartiles
+- five-number summary: minimum < Q1 < Median < Q3 < maximum
+- **box-and-whisker plot** is used to describe five-number summary
+
+```{r}
+#exp 2.5
+demand <- c(60,84,65,67,75,72,80,85,63,82,70,75)
+demand <- sort(demand)
+demand
+fivenum(demand)
+```
+
+```{r}
+#exp 2.6
+shopping <- c(18,46,45,20,33,33,21,31,23,34,42,38,31,38,21,37,37,30,42,34,34,18,30,48,51,52,19,37,30,25,42,41,34,50,52,50,19,21,34,25,18,25,25,43,59,37,23,23,40,31,45,51,45,60,30,40,37,21,34,34,42,43,60,40,37,20,40,18,21,52,18,68,28,57,63,57,63,31,67,25,69,34,69,57,69,57,70,18,70,70,71,73,73,71,70,69,68,64,59,18,47,52,55,25)
+shopping <- sort(shopping)
+shopping
+q1_position <- 0.25*(length(shopping)+1)
+q1 <- 28 + 0.25*(30-28)
+q1
+fivenum(shopping)
+```
+
+
+# Shape of distribution
+
+1. **skewness**
+- Skewness is positive: skewed-right (mean > median)
+- skewness is negative: skewed-left (mean < median)
+
+2. R
+- Base R does not have the function to calculate skewness
+- Package "moment" with the command **skewness()**
+
+# Measures of variability
+
+1. **Range** = max - min
+2. **IQR** and **box-and-whisker plot**
+- Interquartile range (IQR) = Q3 - Q1 (remove the lowest 25% of the data and the highest 25% of the data)
+- Box-and-Whisker Plot
+3. **variance** and **standard deviation**
+
+```{r}
+#exp 2.8, p74
+sales <- data.frame(Location_1 = c(6,8,10,12,14,9,11,7,13,11),
+                    Location_2 = c(1,19,2,18,11,10,3,17,4,17),
+                    Location_3 = c(2,3,25,20,22,19,25,20,22,26),
+                    Location_4 = c(22,20,10,13,12,10,11,9,10,8))
+sales
+summary(sales)
+sapply(sales,IQR)
+boxplot(sales$Location_1, sales$Location_2, sales$Location_3, sales$Location_4,
+        main = "Sales by location",
+        ylab = "Sales",
+        at = c(1,2,3,4),
+        names = c("Location 1","Location 2","Location 3","Location 4"),
+        col = "orange",
+        border = "orange")
+```
+
+```{r}
+#exp 2.9, p76
+sales <- c(6,8,10,12,14,9,11,7,13,11)
+mean(sales)
+mean <- rep(mean(sales), 10)
+df <- as.data.frame(cbind(sales,mean))
+df
+df$s_diff_m <- df$sales - df$mean
+df$s_diff_m_sq <- df$s_diff_m^2
+var <- sum(df$s_diff_m_sq)/(length(sales)-1)
+var
+sd <- var^0.5
+sd
+var(sales)
+sd(sales)
+```
+
+4. Coefficient of Variation
+- to adjust standard deviation as percentage of mean (unadjusted sd is biased when we try to compare 2data of means of large difference)
+- 

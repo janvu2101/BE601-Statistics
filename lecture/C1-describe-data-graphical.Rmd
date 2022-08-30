@@ -5,7 +5,7 @@ author: "Uyen Vu (uyen.vu@phdstudent.hhs.se)"
 date: "August 2nd, 2022"
 output: word_document
 #    reference_docx: "assets/sse-word-template.docx"
-#   toc: true
+#    toc: true
 #    toc_depth: 2
 monofont: 'consolas'
 ---
@@ -37,12 +37,14 @@ monofont: 'consolas'
 - nonsampling errors are caused not by the procedure of selection of objects from a population but by other procedures like designing questionnaires, analyzing data.
 
 ## Descriptive vs Inferential statistics
+
 - descriptive statistics: focus on graphical and numerical procedures that summarize and process data
 - inferential statistics: focus on using data to make predictions, forecasts, and estimates to make better decisions
 
 *Running a regression is a descriptive or inferential statistics?" - 
 
 # Classification of variables
+
 - 2 common ways of classifying variables:
 
   + categorical vs numerical
@@ -59,9 +61,16 @@ monofont: 'consolas'
 - Quantitative variables: interval vs ratio levels of measurement (difference between response has measurable meaning)
 
 # Graphs to describe categorical variables
+- Graph to describe a single categorical variable
+  + bar chart: cluster bar chart vs component bar chart
+  + pie chart
+  + pareto diagram:
+- Graph to describe the relationship between 2 categorical variables:
+  + component bar chart
+  + cluster bar chart
 - frequency distribution vs relative frequency distribution:
-  + FD: comes in absolution value, described by bar chart
-  + RFD: comes in percentage, described by pie chart
+  + FD: comes in absolution value, described by *bar chart*
+  + RFD: comes in percentage, described by *pie chart*
 
 ![Figure. Example of frequency distribution and relative frequency distribution](assets/image/C1-frequencydistributiontable.PNG)
 
@@ -69,7 +78,7 @@ monofont: 'consolas'
 
 ![Figure. Example of pie chart](assets/image/C1-piecharttodescriberelativefrequencydistribution.PNG)
 
-- Cross tables (crosstab, contingency table): is to list the observations for every combination of values for 2 different categorical/ ordinal variable.We can use component bar chart or cluster bar chart to visualize cross tables
+- Cross tables (crosstab, contingency table): is to list the observations for every combination of values for 2 different categorical/ ordinal variable.We can use *component bar chart* or *cluster bar chart* to visualize cross tables
 
 ![Figure. Example of cross table](assets/image/C1-crosstab.PNG)
 
@@ -85,6 +94,20 @@ monofont: 'consolas'
 
 # Graphs to describe time-series data
 - We use line chart
+
+# Graphs to describe numerical variables
+- Graphs to describe single numerical variable
+  + histogram and ogive (cumulative line graph)
+  + stem-and-leaf
+- Graphs to describe the relationship between 2 numerical variables: scatter plot
+- Shape of distribution:
+  + symmetry: obs are balanced or evenly distributed about its center
+  + skewness: obs are unevenly distributed about its center
+    + skewed-right (positively skewed)
+    + skewed-left (negatively skewed)
+- Stem-and leaf
+
+# Misleading histogram and misleading time-series plot
 
 # Using R to describe data by graphical
 

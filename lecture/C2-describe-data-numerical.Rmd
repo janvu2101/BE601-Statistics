@@ -74,7 +74,7 @@ fivenum(shopping)
 
 2. R
 - Base R does not have the function to calculate skewness
-- Package "moment" with the command **skewness()**
+- Package **"moment"** with the command **skewness()**
 
 # Measures of variability
 
@@ -120,5 +120,101 @@ sd(sales)
 ```
 
 4. Coefficient of Variation
-- to adjust standard deviation as percentage of mean (unadjusted sd is biased when we try to compare 2data of means of large difference)
-- 
+- to adjust standard deviation as percentage of mean (unadjusted sd is biased when we try to compare 2 datasets of means of large difference)
+
+```{r}
+df <- data.frame(a=c(88, 85, 82, 97, 67, 77, 74, 86, 81, 95),
+                   b=c(77, 88, 85, 76, 81, 82, 88, 91, 92, 99),
+                   c=c(67, 68, 68, 74, 74, 76, 76, 77, 78, 84))
+df
+CV <- sapply(df, function(x) sd(x)/mean(x)*100)
+CV
+```
+
+5. Chebyshev's theorem and the empirical rule
+
+- Chebyshev's theorem: For any population with unknown distribution, with mean and sd, k > 1 is the number of sd, the percentage of observations that lie within the interval **[mean +/- sd*k]** is 
+**100[1 - 1/k^2]%**
+
+- Empirical rule: For large population with bell-shaped distribution:
+  + approximately 68% of the obs are in the interval [mean +/- 1sd]
+  + approximately 95% of the obs are in the interval [mean +/- 2sd]
+  + almost all of the obs are in the interval [mean +/- 3sd]
+  
+```{r}
+#exp 2.13
+mean <- 1200
+sd <- 50
+#If shape of distribution is unknown: apply Chebyshev theorem
+interval1_min <- mean - 1.5*sd
+interval1_min
+interval1_max <- mean + 1.5*sd
+interval1_max
+interval2_min <- mean - 2*sd
+interval2_min
+interval2_max <- mean + 2*sd
+interval2_max
+interval3_min <- mean - 3*sd
+interval3_min
+interval3_max <- mean + 3*sd
+interval3_max
+k1_5 <- 100*(1-1/(1.5^2))
+k1_5
+k2 <- 100*(1-1/(2^2))
+k2
+k3 <- 100*(1-1/3^2)
+k3
+#If shape of distribution is known as bell-shape: apply empirical rule
+```
+
+6. z-score
+
+- percentile & quartiles: location of a value **relative to the entire dataset**
+
+- z-Score: location of a value **relative to the mean of distribution**
+  + number of sd that a value is from the mean
+  + >0: value > mean
+  + =0: value = mean
+  + <0: value < mean
+  + **z-score = (value of x - mean)/sd**
+  
+
+```{r}
+#exp 2.14
+mean <- 1200
+sd <- 50
+z_1120 <- (1120-1200)/50
+z_1120
+```
+
+# Weighted mean and measure of grouped data
+
+- Approximate mean and variance for grouped data is used when we don't know the exact value (e.g. a person is asked to choose his age range between 20 - 29 rather than giving an exact value)
+
+# Measures of relationships between variables
+- **scatterplot** is used as a graphical way of describing relationship
+- **covariance** and **correlation** are used as numerical ways
+
+```{r}
+post <- c(16,31,27,23,15,17,17,18,14)
+interaction <- c(165,314,280,195,137,286,199,128,462)
+df <- as.data.frame(cbind(post,interaction))
+df$mean_post <- mean(df$post)
+df$mean_int <- mean(df$interaction)
+df$mean_post_diff <- df$post - df$mean_post
+df$mean_int_diff <- df$interaction - df$mean_int
+df$mean_diff_prod <- df$mean_post_diff*df$mean_int_diff
+cov_manual <- sum(df$mean_diff_prod)/(nrow(df)-1)
+cov_manual
+cov_r <- cov(post,interaction)
+cov_r
+df$mean_post_diff_sq <- df$mean_post_diff^2
+df$mean_int_diff_sq <- df$mean_int_diff^2
+var_post <- sum(df$mean_post_diff_sq)/(nrow(df)-1)
+var_int <- sum(df$mean_int_diff_sq)/(nrow(df)-1)
+cor_manual <- cov_manual/(var_post^0.5 * var_int^0.5)
+cor_manual
+cor_r <- cor(post,interaction, method = "pearson")
+cor_r
+```
+

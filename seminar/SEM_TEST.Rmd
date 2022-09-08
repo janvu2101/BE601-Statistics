@@ -1,0 +1,26 @@
+---
+title: "SEMINAR_TEST"
+author: "Uyen Vu"
+date: "01/09/2022"
+output: pdf_document
+---
+```{r}
+stock <- c(4.0,14.3, 19.0, -14.7, -26.5, 36.1, 23.8)
+bill <- c(6.5,4.4,3.8,6.9,8.0,5.8,4.5)
+stock2 <- sort(stock, decreasing = FALSE)
+stock2
+mean(stock)
+mean(bill)
+sd(stock)
+sd(bill)
+```
+
+```{r}
+ds1 <- c(84,80,72,72,76,77,75,69,72,62,78,71,70,76,66,77,63,72,68,70)
+ds2 <- c(70,73,77,76,74,70,67,61,70,70,75,66,75,76,71,67,67,67,70,78,73,66,65,79,66,71,78,72,82,67)
+sort(ds1)
+sort(ds2)
+fivenum(ds1)
+fivenum(ds2)
+```
+

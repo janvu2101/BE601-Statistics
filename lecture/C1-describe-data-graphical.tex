@@ -1,0 +1,383 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+  \setmonofont[]{consolas}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={BE601 - DATA ANALYTICS I},
+  pdfauthor={Uyen Vu (uyen.vu@phdstudent.hhs.se)},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+
+\title{BE601 - DATA ANALYTICS I}
+\usepackage{etoolbox}
+\makeatletter
+\providecommand{\subtitle}[1]{% add subtitle to \maketitle
+  \apptocmd{\@title}{\par {\large #1 \par}}{}{}
+}
+\makeatother
+\subtitle{Chapter 1 - Describing data: Graphical}
+\author{Uyen Vu
+(\href{mailto:uyen.vu@phdstudent.hhs.se}{\nolinkurl{uyen.vu@phdstudent.hhs.se}})}
+\date{August 2nd, 2022}
+
+\begin{document}
+\maketitle
+
+\newpage
+
+\hypertarget{important-terms-and-concepts}{%
+\section{Important terms and
+concepts}\label{important-terms-and-concepts}}
+
+\hypertarget{population-vs-sample}{%
+\subsection{Population vs sample}\label{population-vs-sample}}
+
+\begin{itemize}
+\tightlist
+\item
+  population: the complete set of items that interest the investigator
+  (N)
+\item
+  sample: the observed subset (portion) of a population (n)
+\end{itemize}
+
+\emph{Why do we need a sample? Why don't we just study the whole
+population?} - Because of 2 factors: size and time constraints
+
+\hypertarget{random-sampling-vs-systematic-sampling}{%
+\subsection{Random sampling vs systematic
+sampling}\label{random-sampling-vs-systematic-sampling}}
+
+\begin{itemize}
+\tightlist
+\item
+  random sampling: the procedure in which n objects are chosen from a
+  population N totally by chance, the selection of one object does not
+  influence the selection of any other object.
+\item
+  systematic sampling (including stratified sampling and cluster
+  sampling): the procedure in which the selection of objects is done
+  with jth item from a population, where j = N/n.~Randomly pick a number
+  from 1 to j to obtain the first item to be included in the systematic
+  sampling.
+\end{itemize}
+
+\hypertarget{sampling-errors-vs-nonsampling-errors}{%
+\subsection{Sampling errors vs Nonsampling
+errors}\label{sampling-errors-vs-nonsampling-errors}}
+
+\begin{itemize}
+\item
+  parameter: numerical measure that describe the characteristic of a
+  population N
+\item
+  statistic: numerical measure that describe the characteristic of a
+  sample n
+\item
+  sampling errors are caused by sampling procedure:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    the population and the sample are not relevant
+  \item
+    survey subjects give inaccurate answers or are dishonest
+  \item
+    no response to the questions
+  \end{itemize}
+\item
+  nonsampling errors are caused not by the procedure of selection of
+  objects from a population but by other procedures like designing
+  questionnaires, analyzing data.
+\end{itemize}
+
+\hypertarget{descriptive-vs-inferential-statistics}{%
+\subsection{Descriptive vs Inferential
+statistics}\label{descriptive-vs-inferential-statistics}}
+
+\begin{itemize}
+\tightlist
+\item
+  descriptive statistics: focus on graphical and numerical procedures
+  that summarize and process data
+\item
+  inferential statistics: focus on using data to make predictions,
+  forecasts, and estimates to make better decisions
+\end{itemize}
+
+*Running a regression is a descriptive or inferential statistics?" -
+
+\hypertarget{classification-of-variables}{%
+\section{Classification of
+variables}\label{classification-of-variables}}
+
+\begin{itemize}
+\item
+  2 common ways of classifying variables:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    categorical vs numerical
+  \item
+    qualitative vs quantitative
+  \end{itemize}
+\end{itemize}
+
+\hypertarget{categorical-vs-numerical}{%
+\subsection{Categorical vs Numerical}\label{categorical-vs-numerical}}
+
+\begin{itemize}
+\tightlist
+\item
+  Categorical variables: responses to categorical variables belong to
+  groups or categories (yes/no question, gender, marital status, Likert
+  scale)
+\item
+  Numerical variables:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    discrete variables: produced (usually) by a counting process
+  \item
+    continuous variables: take value within a given range and usually
+    produced by a measurement process
+  \end{itemize}
+\end{itemize}
+
+\hypertarget{qualitative-vs-quantitative}{%
+\subsection{Qualitative vs
+Quantitative}\label{qualitative-vs-quantitative}}
+
+\begin{itemize}
+\tightlist
+\item
+  Qualitative variables: nominal vs ordinal levels of measurement (no
+  measurable meaning to the difference between responses)
+\item
+  Quantitative variables: interval vs ratio levels of measurement
+  (difference between response has measurable meaning)
+\end{itemize}
+
+\hypertarget{graphs-to-describe-categorical-variables}{%
+\section{Graphs to describe categorical
+variables}\label{graphs-to-describe-categorical-variables}}
+
+\begin{itemize}
+\tightlist
+\item
+  Graph to describe a single categorical variable
+
+  \begin{itemize}
+  \tightlist
+  \item
+    bar chart: cluster bar chart vs component bar chart
+  \item
+    pie chart
+  \item
+    pareto diagram:
+  \end{itemize}
+\item
+  Graph to describe the relationship between 2 categorical variables:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    component bar chart
+  \item
+    cluster bar chart
+  \end{itemize}
+\item
+  frequency distribution vs relative frequency distribution:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    FD: comes in absolution value, described by \emph{bar chart}
+  \item
+    RFD: comes in percentage, described by \emph{pie chart}
+  \end{itemize}
+\end{itemize}
+
+\begin{figure}
+\centering
+\includegraphics{assets/image/C1-frequencydistributiontable.PNG}
+\caption{Figure. Example of frequency distribution and relative
+frequency distribution}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics{assets/image/C1-barcharttodescribecategoricaldata.PNG}
+\caption{Figure. Example of bar chart}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics{assets/image/C1-piecharttodescriberelativefrequencydistribution.PNG}
+\caption{Figure. Example of pie chart}
+\end{figure}
+
+\begin{itemize}
+\tightlist
+\item
+  Cross tables (crosstab, contingency table): is to list the
+  observations for every combination of values for 2 different
+  categorical/ ordinal variable.We can use \emph{component bar chart} or
+  \emph{cluster bar chart} to visualize cross tables
+\end{itemize}
+
+\begin{figure}
+\centering
+\includegraphics{assets/image/C1-crosstab.PNG}
+\caption{Figure. Example of cross table}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics{assets/image/C1-componentbarchart.PNG}
+\caption{Figure. Example of component bar chart}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics{assets/image/C1-clusterbarchar.PNG}
+\caption{Figure. Example of cluster bar chart}
+\end{figure}
+
+\begin{itemize}
+\tightlist
+\item
+  Pareto diagram: is a \emph{bar chart} that displays the
+  \emph{frequency of defect causes} and orders them in a descending
+  manner. This helps to separate the ``vital view'' from the ``trivial
+  many''.
+\end{itemize}
+
+\begin{figure}
+\centering
+\includegraphics{assets/image/C1-paretotable.PNG}
+\caption{Figure. Example of table ranking frequencies in decending
+order}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics{assets/image/C1-paretodiagram.PNG}
+\caption{Figure. Example of Pareto Diagram}
+\end{figure}
+
+\hypertarget{graphs-to-describe-time-series-data}{%
+\section{Graphs to describe time-series
+data}\label{graphs-to-describe-time-series-data}}
+
+\begin{itemize}
+\tightlist
+\item
+  We use line chart
+\end{itemize}
+
+\hypertarget{graphs-to-describe-numerical-variables}{%
+\section{Graphs to describe numerical
+variables}\label{graphs-to-describe-numerical-variables}}
+
+\begin{itemize}
+\tightlist
+\item
+  Graphs to describe single numerical variable
+
+  \begin{itemize}
+  \tightlist
+  \item
+    histogram and ogive (cumulative line graph)
+  \item
+    stem-and-leaf
+  \end{itemize}
+\item
+  Graphs to describe the relationship between 2 numerical variables:
+  scatter plot
+\item
+  Shape of distribution:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    symmetry: obs are balanced or evenly distributed about its center
+  \item
+    skewness: obs are unevenly distributed about its center
+
+    \begin{itemize}
+    \tightlist
+    \item
+      skewed-right (positively skewed)
+    \item
+      skewed-left (negatively skewed)
+    \end{itemize}
+  \end{itemize}
+\item
+  Stem-and leaf
+\end{itemize}
+
+\hypertarget{misleading-histogram-and-misleading-time-series-plot}{%
+\section{Misleading histogram and misleading time-series
+plot}\label{misleading-histogram-and-misleading-time-series-plot}}
+
+\hypertarget{using-r-to-describe-data-by-graphical}{%
+\section{Using R to describe data by
+graphical}\label{using-r-to-describe-data-by-graphical}}
+
+\end{document}

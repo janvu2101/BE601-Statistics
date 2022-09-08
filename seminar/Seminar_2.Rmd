@@ -10,10 +10,119 @@ monofont: 'consolas'
 \newpage
 
 # Test Exercise
-# Discussion exercises
-## 46 - page 
+3.17 - p.114
+A department store manager has monitored the number of complaints received per week about poor service. The probabilities for numbers of complaints in a week, established by this review, are shown in the following table. Let A be the event “there will be at least one complaint in a week” and B the event “there will be fewer than ten complaints in a week.”
 
-## 51
+| Number of complaints |   0  | 1 to 3 | 4 to 6 | 7 to 9 | 10 to 12 | More than 12 |
+|----------------------|:----:|:------:|:------:|:------:|:--------:|:------------:|
+| Probability          | 0.14 |  0.39  |  0.23  |  0.15  |   0.06   |     0.03     |
+
+a. Find the probability of A.
+b. Find the probability of B.
+c. Find the probability of the complement of A.
+d. Find the probability of the union of A and B.
+e. Find the probability of the intersection of A and B.
+f. Are A and B mutually exclusive?
+g. Are A and B collectively exhaustive?
+
+```{r}
+P_A <- 1 - 0.14
+paste(c("a) P(A) is",P_A), collapse = " ")
+P_B <- 1 - 0.06 - 0.03
+paste(c("b) P(B) is", P_B), collapse = " ")
+P_NotA <- 0.14
+paste(c("c) P(NotA) is",P_NotA), collapse = " ")
+P_A_intersect_B <- P_B - P_NotA
+P_A_union_B <- P_A + P_B - P_A_intersect_B
+paste(c("d) P(A_union_B) is",P_A_union_B), collapse = " ")
+paste(c("e) P(A_intersect_B) is",P_A_intersect_B), collapse = " ")
+P_A_intersect_B == 0
+paste(c("f) Because P(A_intersect_B) is not equal to 0", "A and B are not mutually exclusive"), collapse = ", ")
+P_A + P_B == 1
+paste(c("g) Because P(A) + P(B) is not equal to 1", "A and B are not collectively exhaustive"), collapse = ", ")
+```
+
+3.18 - page 115
+A corporation receives a particular part in shipments of 100. Research indicated the probabilities shown in the accompanying table for numbers of defective parts in a shipment.
+
+| Number      |   0  |   1  |   2  |  3  | >3 defective |
+|-------------|:----:|:----:|:----:|:---:|:------------:|
+| Probability | 0.29 | 0.36 | 0.22 | 0.1 |     0.03     |
+
+a. What is the probability that there will be fewer than three defective parts in a shipment?
+b. What is the probability that there will be more than one defective part in a shipment?
+c. The five probabilities in the table sum to 1. Why must this be so?
+
+```{r}
+E1 <- "E1: Fewer than 3 defective parts in a shipment"
+E2 <- "E2: More than one defective part in a shipment"
+E1
+E2
+P_E1 <- 0.29 + 0.36 + 0.22
+P_E2 <- 0.29 + 0.36
+paste(c("P(E1) = ", P_E1), collapse = " ")
+paste(c("P(E2) = ", P_E2), collapse = " ")
+```
+
+
+# Discussion exercises
+## 46 - page 125
+
+A conference began at noon with two parallel sessions. The session on portfolio management was attended by 40% of the delegates, while the session on chartism was attended by 50%. The evening session consisted of a talk titled “Is the Random Walk Dead?” This was attended by 80% of all delegates.
+
+a. If attendance at the portfolio management session and attendance at the chartism session are mutually exclusive, what is the probability that a randomly chosen delegate attended at least one of these sessions?
+b. If attendance at the portfolio management session and attendance at the evening session are statistically independent, what is the probability that a randomly chosen delegate attended at least one of these sessions?
+c. Of those attending the chartism session, 75% also attended the evening session. What is the probability that a randomly chosen delegate attended at least one of these two sessions?
+
+```{r}
+E1 <- "E1: Delegates attend portfolio management session"
+E2 <- "E2: Delegates attend chartism session"
+E3 <- "E3: Delegates attend evening session"
+P_E1 <- 0.4
+P_E2 <- 0.5
+P_E3 <- 0.8
+#a) assume that E1 & E2 are mutually exclusive
+P_E1_union_E2 <- P_E1 + P_E2
+paste(c("P(E1_union_E2) is", P_E1_union_E2), collapse = " ")
+#b) assume that E1 & E3 are statistically independent
+P_E1_intersect_E3 <- P_E1 * P_E3 #statistically independent
+E4 <- "E4: Delegates attend atleast one of 2 sessions E1 & E3"
+P_E4 <- P_E1 + P_E3 - P_E1_intersect_E3
+paste(c("P(E4) is", P_E4), collapse = " ")
+
+#c) conditional probability
+P_E3_on_E2 <- 0.75
+P_E3_intersect_E2 <- P_E3_on_E2 * P_E2 #multiplicative rule
+E5 <- "E5: Delegates attend atleast one of 2 sessions E2 & E3"
+P_E5 <- P_E2 + P_E3 - P_E3_intersect_E2
+paste(c("P(E5) is", P_E5), collapse = " ")
+```
+
+## 51 - page 126
+
+An editor may use all, some, or none of three possible strategies to enhance the sales of a book:
+
+a. An expensive pre-publication promotion
+b. An expensive cover design
+c. A bonus for sales representatives who meet predetermined sales levels
+
+In the past, these three strategies have been applied simultaneously to only 2% of the company’s books. Twenty percent of the books have had expensive cover designs, and, of these, 80% have had expensive pre-publication promotion. A rival editor learns that a new book is to have both an expensive pre-publication promotion and an expensive cover design and now wants to know how likely it is that a bonus scheme for sales representatives will be introduced. Compute the probability of interest to the rival editor.
+
+```{r}
+E1 <- "E1: Book has an expensive pre-publication promotion"
+E2 <- "E2: Book has an expensive cover design"
+E3 <- "E3: Book is associated with the bonus scheme for sales representatives"
+E4 <- "E4: Book has both expensive pre-publication promotion and an expensive cover design"
+
+P_E1_E2_E3_intersect <- 0.02
+P_E2 <- 0.2
+P_E1_on_E2 <- 0.8
+P_E1_intersect_E2 <- P_E1_on_E2 * P_E2 #multiplication rule
+P_E4 <- P_E1_intersect_E2
+P_E3_intersect_E4 <- P_E1_E2_E3_intersect
+P_E3_on_E4 <- P_E3_intersect_E4 / P_E4
+paste(c("The probability of interest to the rival editor is", P_E3_on_E4), collapse = " ")
+```
 
 ## E6
 
@@ -28,28 +137,23 @@ c1: item being classified as defective
 c2: item being classified as not_defective
 
 ```{r}
-#5% of the produced items are defective
 p_d1 <- 0.05
-p_d2 <- 0.95 #complementary rule
-#items that are free from defects are classified as correct with probability 0.98
+p_d2 <- 0.95
 p_c2_on_d2 <- 0.98
-p_c1_on_d2 <- 1 - p_c2_on_d2 #complementary rule
-p_c2_intersect_d2 <- p_c2_on_d2 * p_d2 #multiplication rule
-p_c1_intersect_d2 <- p_c1_on_d2 * p_d2 #multiplication rule
-#defective items are classified as defective with probability 0.95
 p_c1_on_d1 <- 0.95
-p_c2_on_d1 <- 1 - p_c1_on_d1 #complementary rule
-p_c1_intersect_d1 <- p_c1_on_d1 * p_d1 #multiplication rule
-p_c2_intersect_d1 <- p_c2_on_d1 * p_d1 #multiplication rule
-# a) proportion of produced items classified as defective: p_c1
-## Because c(c1,c2) and d(d1,d2) are independent; and each broken into mutually exclusive and collectively exhaustive:
+#a) Find p_c1
+p_c1_intersect_d1 <- p_c1_on_d1 * p_d1
+p_c2_intersect_d1 <- p_d1 - p_c1_intersect_d1
+p_c2_intersect_d2 <- p_c2_on_d2 * p_d2
+p_c1_intersect_d2 <- p_d2 - p_c2_intersect_d2
+p_c1_intersect_d1
+p_c2_intersect_d1
+p_c2_intersect_d2
+p_c1_intersect_d2
 p_c1 <- p_c1_intersect_d1 + p_c1_intersect_d2
 p_c1
-# b) Find the probability that an item classified as defective is defective: p_d1_on_c1
-## Applying Bayes's theorm
-p_d1_on_c1_nominator <- p_c1_on_d1 * p_d1
-p_d1_on_c1_denominator <- p_c1_on_d1 * p_d1 + p_c1_on_d2 * p_d2
-p_d1_on_c1 <- p_d1_on_c1_nominator/p_d1_on_c1_denominator
+#b) Find p_d1_on_c1
+p_d1_on_c1 <- p_c1_intersect_d1 / p_c1
 p_d1_on_c1
 ```
 
@@ -62,11 +166,30 @@ We can calculate the marginal probability of each event by using two-way table:
 | **Totals** | 0.0475+0.0025=0.05 | 0.019+0.931=0.95 |           1          |
 
 #Additional recommended exercises
+
 ## 40
+A mail-order firm considers three possible events in filling an order:
+  A: The wrong item is sent.
+  B: The item is lost in transit.
+  C: The item is damaged in transit.
+Assume that A is independent of both B and C and that B and C are mutually exclusive. The individual event probabilities are P(A) = 0.02, P(B) = 0.01, and P(C) = 0.04. Find the probability that at least one of these foul-ups occurs for a randomly chosen order.
+
+```{r}
+1- 0.96 * 0.99 * 0.98
+```
+
+
 ## 3.99
 
-S1: Customer is student | S1: Customer is not student
+In a campus restaurant it was found that 35% of all customers order vegetarian meals and that 50% of all customers are students. Further, 25% of all customers who are students order vegetarian meals.
+a. What is the probability that a randomly chosen customer both is a student and orders a vegetarian meal?
+b. If a randomly chosen customer orders a vegetarian meal, what is the probability that the customer is a student?
+c. What is the probability that a randomly chosen customer both does not order a vegetarian meal and is not a student?
+d. Are the events “customer orders a vegetarian meal” and “customer is a student” independent?
+e. Are the events “customer orders a vegetarian meal” and “customer is a student” mutually exclusive?
+f. Are the events “customer orders a vegetarian meal” and “customer is a student” collectively exhaustive?
 
+S1: Customer is student | S1: Customer is not student
 V1: Customer eats vegetarian | V2: Customer does not eat vegetarian
 
 ```{r}
@@ -89,14 +212,21 @@ p_s1_intersect_v2 <- p_v2_on_s1 * p_s1
 p_s2_intersect_v2 <- p_v2 - p_s1_intersect_v2
 p_s2_intersect_v2
 #d) independent events?
-p_v1 * p_s1 == p_s1_intersect_v1
-#e) mutually exclusive?
-p_s1_intersect_v1 == 0
+p_v1 * p_s1 == p_s1_intersect_v1 #FALSE so not independent
+#e) mutually exclusive? 
+p_s1_intersect_v1 == 0 #FALSE so not mutually exclusive
 #f) collectively exhaustive?
-p_s1 + p_v1 == 1
+p_s1 + p_v1 == 1 #FALSE so not collectively exhaustive
 ```
 
 ## 3.102
+
+A large corporation organized a ballot for all its workers on a new bonus plan. It was found that 65% of all night-shift workers favored the plan and that 40% of all female workers favored the plan. Also, 50% of all employees are night-shift workers and 30% of all employees are women. Finally, 20% of all night-shift workers are women.
+a. What is the probability that a randomly chosen employee is a woman in favor of the plan?
+b. What is the probability that a randomly chosen employee is either a woman or a night-shift worker (or both)?
+c. Is employee gender independent of whether the night shift is worked?
+d. What is the probability that a female employee is a night-shift worker?
+e. If 50% of all male employees favor the plan, what is the probability that a randomly chosen employee both does not work the night shift and does not favor the plan?
 
 Define the events:
 
@@ -105,6 +235,7 @@ G1: worker is female | G2: worker is male
 N1: worker works night-shift | N2: worker does not work night-shift
 
 F1: worker favors the plan | F2: worker does not favor the plan
+
 
 ```{r}
 #65% of all night_shift workers favored the plan

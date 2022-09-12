@@ -1,0 +1,63 @@
+---
+title: "Big_R_Assignment"
+output: pdf_document
+---
+
+```{r}
+library(readxl) # For loading Excel files
+library(kableExtra) # For table formatting
+library(ggplot2) # For graphs
+library(tinytex) # For making a pdf
+library(tibble) # For the temporary data
+library(dplyr)
+library(tidyr)
+library(RColorBrewer) # For heat map
+options(scipen=999) # Fix y-axis formats (for R in general)
+```
+
+```{r}
+data <- read_excel("data/25730.xlsx",1)
+data$date <- as.Date(data$date)
+data[data<0] <- 0 # To simplify: We set negative values to zero
+
+Country1<-"Sweden"
+Country2<-"Peru"
+Country3<-"El Salvador"
+Country4<-"Russia"
+Country5<-"Cambodia"
+
+
+cat(Country1)
+cat(Country2)
+cat(Country3)
+cat(Country4)
+cat(Country5)
+
+data<-data[data$location==Country1|data$location==Country2|data$location==Country3|data$location==Country4|data$location==Country5,]
+data$date1<-as.numeric(format(as.Date(data$date), "%m"))
+data$date2<-as.numeric(format(as.Date(data$date), "%Y"))
+data$date3<-data$date2+data$date1*0.01
+
+country<-data$location
+month<-format(data$date3,digits=2, nsmall=2)
+cases<-round(data$new_cases_per_million, 0)
+
+df<-data.frame(country,month,cases)
+
+df<-df %>%
+  group_by(country,month) %>%
+  summarise(cases=sum(cases))
+
+df<-spread(df,month,cases)
+
+df<-with(df, df[order(df$country, decreasing = TRUE),])
+
+kable(df,
+      format="latex",
+      caption="New Cases per million per Month",
+      align=rep('r',5),
+      booktabs=TRUE) %>%
+  kable_styling(latex_options =
+                  c("striped", "hold_position", "scale_down"))
+```
+

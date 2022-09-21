@@ -16,7 +16,7 @@ library(tidyr)
 library(RColorBrewer) # For heat map
 options(scipen=999) # Fix y-axis formats (for R in general)
 
-data <- read_excel("data/25730.xlsx",1)
+data <- read_excel("data/25701.xlsx",1)
 data$date <- as.Date(data$date)
 data[data<0] <- 0 # To simplify: We set negative values to zero
 
